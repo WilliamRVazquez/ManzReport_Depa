@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ManzReport_Depa</string>
+    <string name="reporte_pendiente">Pendientes</string>
+    <string name="reporte_terminados">Terminados</string>
+</resources>
