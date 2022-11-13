@@ -13,20 +13,6 @@
         android:theme="@style/Theme.ManzReport_Depa"
         tools:targetApi="31">
         <activity
-            android:name=".reportes_terminados"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".reportes_pendientes"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".MainActivity"
             android:exported="false">
             <meta-data

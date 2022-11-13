@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/rTerminado_fragment"
+        android:icon="@drawable/report"
+        android:title="@string/terminados"
+        />
+    <item
+        android:id="@+id/rPendiente_fragment"
+        android:icon="@drawable/reports"
+        android:title="@string/pendiente"
+        />
+    <item
+        android:id="@+id/user_fragment"
+        android:icon="@drawable/user"
+        android:title="@string/perfil"
+        />
+</menu>
