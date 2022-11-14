@@ -13,6 +13,12 @@
         android:theme="@style/Theme.ManzReport_Depa"
         tools:targetApi="31">
         <activity
+            android:name=".ubicacion_reporte"
+            android:exported="false" />
+        <activity
+            android:name=".Detalle_Reportes"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false">
             <meta-data

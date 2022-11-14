@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="app/src/main/res/layout/activity_detalle_reportes.xml" value="0.303125" />
+        <entry key="app/src/main/res/layout/activity_ubicacion_reporte.xml" value="0.303125" />
+        <entry key="app/src/main/res/layout/fragment_perfil.xml" value="0.303125" />
+        <entry key="app/src/main/res/layout/fragment_reportes_pendientes.xml" value="0.303125" />
+        <entry key="app/src/main/res/layout/fragment_reportes_terminados.xml" value="0.303125" />
+        <entry key="app/src/main/res/layout/terminado_single.xml" value="0.30104166666666665" />
+        <entry key="app/src/main/res/layout/view_report_single.xml" value="0.30104166666666665" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
