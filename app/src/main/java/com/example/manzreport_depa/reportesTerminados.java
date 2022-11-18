@@ -2,6 +2,7 @@ package com.example.manzreport_depa;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -29,15 +30,31 @@ public class reportesTerminados extends Fragment {
     FirebaseFirestore mFirestore;
     FirebaseAuth mAuth;
     Query query;
+    String correo_e;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        mFirestore = FirebaseFirestore.getInstance();
         View root = inflater.inflate(R.layout.fragment_reportes_terminados, container, false);
         mAuth = FirebaseAuth.getInstance();
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("Preferences", 0);
+        correo_e = prefs.getString("users", "");
         mRecycler =root.findViewById(R.id.recyclerViewSingle);
-        setUpRecyclerView();
+        if(correo_e.equals("2")){
+            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Capdam").whereEqualTo("Aceptado", "Terminado");
+            setUpRecyclerView();
+        }else if(correo_e.equals("3")){
+            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Proteccion civil").whereEqualTo("Aceptado", "Terminado");
+            setUpRecyclerView();
+        }else if(correo_e.equals("4")){
+            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Jardineria").whereEqualTo("Aceptado", "Terminado");
+            setUpRecyclerView();
+        }else if(correo_e.equals("5")){
+            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Mantenimiento publico").whereEqualTo("Aceptado", "Terminado");
+            setUpRecyclerView();
+        }
 
 
 
@@ -51,15 +68,10 @@ public class reportesTerminados extends Fragment {
 
     @SuppressLint("NotifyDataSetChanged")
     private void setUpRecyclerView() {
-        mFirestore = FirebaseFirestore.getInstance();
 
         mRecycler.setLayoutManager(new reportesPendientes.WrapContentLinearLayoutManager(this.getContext(), LinearLayoutManager.VERTICAL,false));
 
-
-
-
-        query = mFirestore.collection("Reportes").whereEqualTo("Aceptado", "Terminado");
-
+        //query = mFirestore.collection("Reportes").whereEqualTo("Aceptado", "Terminado");
 
         FirestoreRecyclerOptions<terminado> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<terminado>().setQuery(query, terminado.class).build();
 

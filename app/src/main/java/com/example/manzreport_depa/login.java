@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,12 +28,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class login extends AppCompatActivity {
     EditText mEmail,mPassword;
     Button mLoginBtn;
     TextView mCreateBtn,forgotTextLink;
     ProgressBar progressBar;
+    FirebaseFirestore mFirestore;
+    String id;
+    String rolesitos;
+
+
+
     FirebaseAuth fAuth;
     int REQUEST_CODE = 200;
 
@@ -41,7 +51,12 @@ public class login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        fAuth = FirebaseAuth.getInstance();
+        mFirestore = FirebaseFirestore.getInstance();
+
+
         verificarPermisos();
+
 
         mEmail = findViewById(R.id.LogIn_Correo);
         mPassword = findViewById(R.id.LogIn_Contraseña);
@@ -50,6 +65,7 @@ public class login extends AppCompatActivity {
         mLoginBtn = findViewById(R.id.button_sesion);
         mCreateBtn = findViewById(R.id.txtv_register_and_btn);
         forgotTextLink = findViewById(R.id.Click_aqui_contraseña);
+
 
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
@@ -82,8 +98,14 @@ public class login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
+
                             Toast.makeText(login.this, "Logeo completado!", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            Intent intent1 = new Intent (login.this, MainActivity.class);
+                            Bundle data1 = new Bundle();
+                            data1.putString("ROL",rolesitos);
+                            intent1.putExtras(data1);
+                            startActivity(intent1);
+
                         }else {
                             Toast.makeText(login.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
