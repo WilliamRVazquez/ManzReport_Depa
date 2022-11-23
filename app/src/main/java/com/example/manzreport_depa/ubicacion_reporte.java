@@ -62,7 +62,6 @@ public class ubicacion_reporte extends AppCompatActivity implements OnMapReadyCa
         setActionBar(mToolbar);
         getActionBar().setDisplayHomeAsUpEnabled(true);
         mToolbar.setTitleTextColor(Color.WHITE);
-
         getActionBar().setTitle("Ubicacion del reporte");
         mToolbar.setNavigationOnClickListener(view -> onBackPressed());
 
@@ -70,6 +69,8 @@ public class ubicacion_reporte extends AppCompatActivity implements OnMapReadyCa
 
 
     }
+
+
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
@@ -121,7 +122,7 @@ public class ubicacion_reporte extends AppCompatActivity implements OnMapReadyCa
             case android.R.id.home:
                 // todo: goto back activity from here
 
-                Intent intent = new Intent(ubicacion_reporte.this,reportesPendientes.class);
+                Intent intent = new Intent(ubicacion_reporte.this, reportesPendientes.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
