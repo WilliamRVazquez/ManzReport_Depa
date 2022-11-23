@@ -40,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
     Query query;
     user users;
     String id;
-    String roles = "0";
-    String rol = "0";
+    String roles = "";
+    String rol = "";
 
 
     reportesTerminados  reportesTerminados = new reportesTerminados();

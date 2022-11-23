@@ -122,6 +122,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="#8C8C8C"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.533"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Register_Nombre_Completo"
                 tools:ignore="MissingConstraints" />
@@ -137,8 +138,10 @@
                 android:textColor="@color/black"
                 android:textColorHint="#8C8C8C"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.533"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Register_Correo" />
+
 
             <EditText
                 android:id="@+id/Register_telefono"
@@ -151,22 +154,38 @@
                 android:textColor="@color/black"
                 android:textColorHint="#8C8C8C"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.533"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Register_Contraseña" />
+
+            <EditText
+                android:id="@+id/Register_codeempresa"
+                android:layout_width="352dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#D9D9D9"
+                android:hint="Codigo de Empresa"
+                android:textColor="@color/black"
+                android:textColorHint="#8C8C8C"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.533"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Register_telefono" />
 
             <Button
                 android:id="@+id/button_Register"
                 android:layout_width="159dp"
                 android:layout_height="67dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="8dp"
                 android:backgroundTint="#C23A3A"
                 android:text="Registrarse"
                 android:textColor="@color/white"
                 android:textSize="15dp"
                 app:cornerRadius="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.502"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Register_telefono"
+                app:layout_constraintTop_toBottomOf="@+id/Register_codeempresa"
                 tools:ignore="MissingConstraints" />
 
             <ProgressBar

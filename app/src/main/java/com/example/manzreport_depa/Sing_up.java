@@ -29,13 +29,14 @@ import java.util.regex.Pattern;
 
 public class Sing_up extends AppCompatActivity {
     public static final String TAG = "TAG";
-    EditText mFullName,mEmail,mPassword,mPhone;
+    EditText mFullName,mEmail,mPassword,mPhone,Register_codeempresa;
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
     ProgressBar progressBar;
     FirebaseFirestore fStore;
     String userID;
+
 
     // Contraseña de 8-20 caracteres que requiere números y letras de ambos casos
     private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z]).{8,20}$";
@@ -53,6 +54,7 @@ public class Sing_up extends AppCompatActivity {
         mPhone      = findViewById(R.id.Register_telefono);
         mRegisterBtn= findViewById(R.id.button_Register);
         mLoginBtn   = findViewById(R.id.txtv_inisesion_btn);
+        Register_codeempresa = findViewById(R.id.Register_codeempresa);
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,15 +74,17 @@ public class Sing_up extends AppCompatActivity {
         }
 
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
+            //codes: capdam = C002,proteccioncivil = P003,
+            // jardineria = J004,Mantenimiento Publico = M005
             @Override
             public void onClick(View v) {
                 final String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
+                final String[] rol = new String[1];
                 final String fullName = mFullName.getText().toString();
                 final String phone    = mPhone.getText().toString();
-                int roln = 1;
-                String rol = String.valueOf(roln);
-
+                 final EditText Codee = findViewById(R.id.Register_codeempresa);
+                 String code = Codee.getText().toString();
 
 
                 if(TextUtils.isEmpty(fullName)){
@@ -103,6 +107,9 @@ public class Sing_up extends AppCompatActivity {
                     mEmail.setError("Requiere nombre");
                     mEmail.requestFocus();
                     return;
+                }else if (TextUtils.isEmpty(code)){
+                    Register_codeempresa.setError("Requiere Codido de Empresa");
+                    Register_codeempresa.requestFocus();
                 }else if(PASSWORD_PATTERN.matcher(password).matches()){
                     progressBar.setVisibility(View.VISIBLE);
 
@@ -110,36 +117,52 @@ public class Sing_up extends AppCompatActivity {
                     fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
+                            if(code.equals("C002")) {
+                                task.isSuccessful();
+                                    rol[0] = "2";
 
-                                // send verification link
-                                FirebaseUser fuser = fAuth.getCurrentUser();
-                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        //Toast.makeText(Sing_up.this, "Verification Email Has been Sent.", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-                                    }
-                                });
+                                    Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
+                                    userID = fAuth.getCurrentUser().getUid();
+                                    String id = fAuth.getCurrentUser().getUid();
+                                    DocumentReference documentReference = fStore.collection("users").document(userID);
+                                    Map<String, Object> user = new HashMap<>();
+                                    user.put("Id", id);
+                                    user.put("fName", fullName);
+                                    user.put("email", email);
+                                    user.put("phone", phone);
+                                    user.put("Rol", rol[0]);
+                                    documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d(TAG, "onFailure: " + e.toString());
+                                        }
+                                    });
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    finish();
+
+                                }else if(code.equals("P003")){
+                                task.isSuccessful();
+                                rol[0] = "3";
 
                                 Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
                                 userID = fAuth.getCurrentUser().getUid();
                                 String id = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("users").document(userID);
-                                Map<String,Object> user = new HashMap<>();
-                                user.put("Id",id);
-                                user.put("fName",fullName);
-                                user.put("email",email);
-                                user.put("phone",phone);
-                                user.put("Rol",rol);
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("Id", id);
+                                user.put("fName", fullName);
+                                user.put("email", email);
+                                user.put("phone", phone);
+                                user.put("Rol", rol[0]);
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for "+ userID);
+                                        Log.d(TAG, "onSuccess: user Profile is created for " + userID);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -147,10 +170,74 @@ public class Sing_up extends AppCompatActivity {
                                         Log.d(TAG, "onFailure: " + e.toString());
                                     }
                                 });
-                                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 finish();
-                            }else {
-                                Toast.makeText(Sing_up.this, "Error ! El Correo ya esta registrado" , Toast.LENGTH_SHORT).show();
+
+
+
+
+
+                            }else if(code.equals("J004")){
+                                task.isSuccessful();
+                                rol[0] = "4";
+
+                                Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
+                                userID = fAuth.getCurrentUser().getUid();
+                                String id = fAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = fStore.collection("users").document(userID);
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("Id", id);
+                                user.put("fName", fullName);
+                                user.put("email", email);
+                                user.put("phone", phone);
+                                user.put("Rol", rol[0]);
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: " + e.toString());
+                                    }
+                                });
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+
+
+                            }else if(code.equals("M005")){
+                                task.isSuccessful();
+                                rol[0] = "5";
+
+                                Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
+                                userID = fAuth.getCurrentUser().getUid();
+                                String id = fAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = fStore.collection("users").document(userID);
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("Id", id);
+                                user.put("fName", fullName);
+                                user.put("email", email);
+                                user.put("phone", phone);
+                                user.put("Rol", rol[0]);
+                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d(TAG, "onFailure: " + e.toString());
+                                    }
+                                });
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+
+
+
+                            } else {
+                                Toast.makeText(Sing_up.this, "Error ! El Correo ya esta registrado", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                             }
                         }
