@@ -122,6 +122,7 @@ public class Sing_up extends AppCompatActivity {
                                     rol[0] = "2";
 
                                     Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Sing_up.this, "Capdam", Toast.LENGTH_SHORT).show();
                                     userID = fAuth.getCurrentUser().getUid();
                                     String id = fAuth.getCurrentUser().getUid();
                                     DocumentReference documentReference = fStore.collection("users").document(userID);
@@ -150,6 +151,7 @@ public class Sing_up extends AppCompatActivity {
                                 rol[0] = "3";
 
                                 Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Sing_up.this, "Proteccion Civil", Toast.LENGTH_SHORT).show();
                                 userID = fAuth.getCurrentUser().getUid();
                                 String id = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("users").document(userID);
@@ -182,6 +184,7 @@ public class Sing_up extends AppCompatActivity {
                                 rol[0] = "4";
 
                                 Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Sing_up.this, "Jardineria", Toast.LENGTH_SHORT).show();
                                 userID = fAuth.getCurrentUser().getUid();
                                 String id = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("users").document(userID);
@@ -211,6 +214,7 @@ public class Sing_up extends AppCompatActivity {
                                 rol[0] = "5";
 
                                 Toast.makeText(Sing_up.this, "Registrado.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Sing_up.this, "Mantenimiento Publico", Toast.LENGTH_SHORT).show();
                                 userID = fAuth.getCurrentUser().getUid();
                                 String id = fAuth.getCurrentUser().getUid();
                                 DocumentReference documentReference = fStore.collection("users").document(userID);

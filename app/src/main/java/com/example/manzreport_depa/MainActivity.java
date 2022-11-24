@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d(TAG, document.getId() + " => " + document.getString("Rol"));
                                 //esto es para obtener en un querySnapshot algo especifico de un documento en string y asi no obtener el data
                                 roles = document.getString("Rol");
-                                Toast.makeText(MainActivity.this, roles, Toast.LENGTH_SHORT).show();
+              //codigo de ver rol//Toast.makeText(MainActivity.this, roles, Toast.LENGTH_SHORT).show();
                                 SharedPreferences prefs = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
                                 SharedPreferences.Editor editor = prefs.edit();
                                 editor.putString("users", roles);
