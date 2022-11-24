@@ -81,12 +81,12 @@ public class login extends AppCompatActivity {
                 }
 
                 if(TextUtils.isEmpty(password)){
-                    mPassword.setError("Contraseña requerida");
+                    mPassword.setError("Contraseña requerida",null);
                     return;
                 }
 
                 if(password.length() < 6){
-                    mPassword.setError("la contraseña debe tener >= 6 caracteres");
+                    mPassword.setError("la contraseña debe tener >= 6 caracteres",null);
                     return;
                 }
 

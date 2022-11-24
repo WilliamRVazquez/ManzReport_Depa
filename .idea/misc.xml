@@ -3,13 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/drawable/cursorcustom.xml" value="0.1" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/drawable/ic_close.xml" value="0.1" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/drawable/userblack.xml" value="0.1" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/activity_detalle_reportes.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/activity_login.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/activity_principal.xml" value="0.1644021739130435" />
-        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/activity_sing_up.xml" value="0.33" />
+        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/activity_sing_up.xml" value="0.2" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/activity_ubicacion_reporte.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/cus.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/fragment_perfil.xml" value="0.1644021739130435" />
@@ -19,6 +20,8 @@
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/terminado_single.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/toolbar.xml" value="0.1644021739130435" />
         <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/layout/view_report_single.xml" value="0.1644021739130435" />
+        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/menu/bottom_navigation.xml" value="0.19895833333333332" />
+        <entry key="..\:/Users/od227/AndroidStudioProjects/ManzReport_Depa/app/src/main/res/menu/overflow.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/layout/activity_detalle_reportes.xml" value="0.303125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.303125" />
         <entry key="app/src/main/res/layout/activity_sing_up.xml" value="0.303125" />
