@@ -1,5 +1,7 @@
 package com.example.manzreport_depa;
 
+import static android.content.ContentValues.TAG;
+
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -99,12 +101,37 @@ public class login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
 
-                            Toast.makeText(login.this, "Logeo completado!", Toast.LENGTH_SHORT).show();
-                            Intent intent1 = new Intent (login.this, MainActivity.class);
-                            Bundle data1 = new Bundle();
-                            data1.putString("ROL",rolesitos);
-                            intent1.putExtras(data1);
-                            startActivity(intent1);
+                            FirebaseFirestore mFirestore;
+                            mFirestore = FirebaseFirestore.getInstance();
+                            fAuth = FirebaseAuth.getInstance();
+                            mFirestore.collection("users").whereEqualTo("Id", fAuth.getCurrentUser().getUid())
+                                    .get()
+                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    String rol = document.getString("Rol");
+                                                    if(rol.equals("1")){
+                                                        progressBar.setVisibility(View.GONE);
+                                                        fAuth.signOut();
+                                                        Toast.makeText(login.this, "No perteneces a ningun departamento", Toast.LENGTH_SHORT).show();
+                                                    }else{
+                                                        Toast.makeText(login.this, "Logeo completado!", Toast.LENGTH_SHORT).show();
+                                                        Intent intent1 = new Intent (login.this, MainActivity.class);
+                                                        Bundle data1 = new Bundle();
+                                                        data1.putString("ROL",rolesitos);
+                                                        intent1.putExtras(data1);
+                                                        startActivity(intent1);
+                                                    }
+
+                                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                                }
+                                            } else {
+                                                Log.w(TAG, "Error getting documents.", task.getException());
+                                            }
+                                        }
+                                    });
 
                         }else {
                             Toast.makeText(login.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
