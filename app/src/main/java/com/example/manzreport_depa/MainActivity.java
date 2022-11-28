@@ -97,17 +97,6 @@ public class MainActivity extends AppCompatActivity {
         setActionBar(mToolbar);
         mToolbar.setTitleTextColor(Color.WHITE);
         getActionBar().setTitle("Reportes deparatamentales");
-        mToolbar.inflateMenu(R.menu.overflow);
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if(item.getItemId() == R.id.closeSesion){
-                    fAuth.signOut();
-                    startActivity(new Intent(MainActivity.this, login.class));
-                }
-                return false;
-            }
-        });
         mToolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         BottomNavigationView navegacion = findViewById(R.id.bottom_navigation);
