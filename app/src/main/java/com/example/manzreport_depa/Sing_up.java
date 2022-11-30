@@ -108,190 +108,205 @@ public class Sing_up extends AppCompatActivity {
                     Register_codeempresa.setError("Requiere Codido de Empresa");
                     Register_codeempresa.requestFocus();
                 }else if(PASSWORD_PATTERN.matcher(password).matches()){
-                    progressBar.setVisibility(View.VISIBLE);
+                    boolean fullNameVerificar = fullName.matches("^[a-zA-Z\\s]*$");
+                    boolean emailVerificar = email.matches("^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$");
+                    boolean phoneVerificar = phone.matches("\\+\\d{12}");
 
-                    // register the user in firebase
-                    fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(code.equals("C002")) {
-                                task.isSuccessful();
-                                rol[0] = "2";
-                                FirebaseUser fuser = fAuth.getCurrentUser();
-                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    if(fullNameVerificar){
+                        if(emailVerificar){
+                            if(phoneVerificar){
+                                progressBar.setVisibility(View.VISIBLE);
+                                // register the user in firebase
+                                fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                     @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(Sing_up.this, "Se ha enviado una Verificacion a tu correo, aceptalo para poder ingresar", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if(code.equals("C002")) {
+                                            task.isSuccessful();
+                                            rol[0] = "2";
+                                            FirebaseUser fuser = fAuth.getCurrentUser();
+                                            fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(Sing_up.this, "Se ha enviado una Verificacion a tu correo, aceptalo para poder ingresar", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                                }
+                                            });
+                                            Toast.makeText(Sing_up.this, "Capdam", Toast.LENGTH_SHORT).show();
+                                            userID = fAuth.getCurrentUser().getUid();
+                                            String id = fAuth.getCurrentUser().getUid();
+                                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                                            Map<String, Object> user = new HashMap<>();
+                                            user.put("Id", id);
+                                            user.put("fName", fullName);
+                                            user.put("email", email);
+                                            user.put("phone", phone);
+                                            user.put("Rol", rol[0]);
+                                            user.put("password",(password));
+                                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: " + e.toString());
+                                                }
+                                            });
+                                            startActivity(new Intent(getApplicationContext(), login.class));
+                                            finish();
+
+                                        }else if(code.equals("P003")){
+                                            task.isSuccessful();
+                                            rol[0] = "3";
+                                            FirebaseUser fuser = fAuth.getCurrentUser();
+                                            fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(Sing_up.this, "Se ha enviado una Verificacion a tu correo, aceptalo para poder ingresar", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                                }
+                                            });
+
+                                            Toast.makeText(Sing_up.this, "Proteccion Civil", Toast.LENGTH_SHORT).show();
+                                            userID = fAuth.getCurrentUser().getUid();
+                                            String id = fAuth.getCurrentUser().getUid();
+                                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                                            Map<String, Object> user = new HashMap<>();
+                                            user.put("Id", id);
+                                            user.put("fName", fullName);
+                                            user.put("email", email);
+                                            user.put("phone", phone);
+                                            user.put("Rol", rol[0]);
+                                            user.put("password",(password));
+                                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: " + e.toString());
+                                                }
+                                            });
+                                            startActivity(new Intent(getApplicationContext(), login.class));
+                                            finish();
+
+
+
+
+
+                                        }else if(code.equals("J004")){
+                                            task.isSuccessful();
+                                            rol[0] = "4";
+                                            FirebaseUser fuser = fAuth.getCurrentUser();
+                                            fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(Sing_up.this, "Se ha enviado una Verificacion a tu correo, aceptalo para poder ingresar", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                                }
+                                            });
+
+
+                                            Toast.makeText(Sing_up.this, "Jardineria", Toast.LENGTH_SHORT).show();
+                                            userID = fAuth.getCurrentUser().getUid();
+                                            String id = fAuth.getCurrentUser().getUid();
+                                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                                            Map<String, Object> user = new HashMap<>();
+                                            user.put("Id", id);
+                                            user.put("fName", fullName);
+                                            user.put("email", email);
+                                            user.put("phone", phone);
+                                            user.put("Rol", rol[0]);
+                                            user.put("password",(password));
+                                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: " + e.toString());
+                                                }
+                                            });
+                                            startActivity(new Intent(getApplicationContext(), login.class));
+                                            finish();
+
+
+                                        }else if(code.equals("M005")){
+                                            task.isSuccessful();
+                                            rol[0] = "5";
+                                            FirebaseUser fuser = fAuth.getCurrentUser();
+                                            fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(Sing_up.this, "Se ha enviado una Verificacion a tu correo, aceptalo para poder ingresar", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
+                                                }
+                                            });
+
+
+                                            Toast.makeText(Sing_up.this, "Mantenimiento Publico", Toast.LENGTH_SHORT).show();
+                                            userID = fAuth.getCurrentUser().getUid();
+                                            String id = fAuth.getCurrentUser().getUid();
+                                            DocumentReference documentReference = fStore.collection("users").document(userID);
+                                            Map<String, Object> user = new HashMap<>();
+                                            user.put("Id", id);
+                                            user.put("fName", fullName);
+                                            user.put("email", email);
+                                            user.put("phone", phone);
+                                            user.put("Rol", rol[0]);
+                                            user.put("password",(password));
+                                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Log.d(TAG, "onFailure: " + e.toString());
+                                                }
+                                            });
+                                            startActivity(new Intent(getApplicationContext(), login.class));
+                                            finish();
+
+
+
+                                        } else {
+                                            Toast.makeText(Sing_up.this, "Error ! El Correo ya esta registrado", Toast.LENGTH_SHORT).show();
+                                            progressBar.setVisibility(View.GONE);
+                                        }
                                     }
                                 });
-                                Toast.makeText(Sing_up.this, "Capdam", Toast.LENGTH_SHORT).show();
-                                userID = fAuth.getCurrentUser().getUid();
-                                String id = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fStore.collection("users").document(userID);
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("Id", id);
-                                user.put("fName", fullName);
-                                user.put("email", email);
-                                user.put("phone", phone);
-                                user.put("Rol", rol[0]);
-                                user.put("password",(password));
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for " + userID);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
-                                    }
-                                });
-                                startActivity(new Intent(getApplicationContext(), login.class));
-                                finish();
-
-                            }else if(code.equals("P003")){
-                                task.isSuccessful();
-                                rol[0] = "3";
-                                FirebaseUser fuser = fAuth.getCurrentUser();
-                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(Sing_up.this, "Se ha enviado una Verificacion a tu correo, aceptalo para poder ingresar", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-                                    }
-                                });
-
-                                Toast.makeText(Sing_up.this, "Proteccion Civil", Toast.LENGTH_SHORT).show();
-                                userID = fAuth.getCurrentUser().getUid();
-                                String id = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fStore.collection("users").document(userID);
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("Id", id);
-                                user.put("fName", fullName);
-                                user.put("email", email);
-                                user.put("phone", phone);
-                                user.put("Rol", rol[0]);
-                                user.put("password",(password));
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for " + userID);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
-                                    }
-                                });
-                                startActivity(new Intent(getApplicationContext(), login.class));
-                                finish();
-
-
-
-
-
-                            }else if(code.equals("J004")){
-                                task.isSuccessful();
-                                rol[0] = "4";
-                                FirebaseUser fuser = fAuth.getCurrentUser();
-                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(Sing_up.this, "Se ha enviado una Verificacion a tu correo, aceptalo para poder ingresar", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-                                    }
-                                });
-
-
-                                Toast.makeText(Sing_up.this, "Jardineria", Toast.LENGTH_SHORT).show();
-                                userID = fAuth.getCurrentUser().getUid();
-                                String id = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fStore.collection("users").document(userID);
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("Id", id);
-                                user.put("fName", fullName);
-                                user.put("email", email);
-                                user.put("phone", phone);
-                                user.put("Rol", rol[0]);
-                                user.put("password",(password));
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for " + userID);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
-                                    }
-                                });
-                                startActivity(new Intent(getApplicationContext(), login.class));
-                                finish();
-
-
-                            }else if(code.equals("M005")){
-                                task.isSuccessful();
-                                rol[0] = "5";
-                                FirebaseUser fuser = fAuth.getCurrentUser();
-                                fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Toast.makeText(Sing_up.this, "Se ha enviado una Verificacion a tu correo, aceptalo para poder ingresar", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: Email not sent " + e.getMessage());
-                                    }
-                                });
-
-
-                                Toast.makeText(Sing_up.this, "Mantenimiento Publico", Toast.LENGTH_SHORT).show();
-                                userID = fAuth.getCurrentUser().getUid();
-                                String id = fAuth.getCurrentUser().getUid();
-                                DocumentReference documentReference = fStore.collection("users").document(userID);
-                                Map<String, Object> user = new HashMap<>();
-                                user.put("Id", id);
-                                user.put("fName", fullName);
-                                user.put("email", email);
-                                user.put("phone", phone);
-                                user.put("Rol", rol[0]);
-                                user.put("password",(password));
-                                documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Log.d(TAG, "onSuccess: user Profile is created for " + userID);
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d(TAG, "onFailure: " + e.toString());
-                                    }
-                                });
-                                startActivity(new Intent(getApplicationContext(), login.class));
-                                finish();
-
-
-
-                            } else {
-                                Toast.makeText(Sing_up.this, "Error ! El Correo ya esta registrado", Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
+                            }else{
+                                Toast.makeText(Sing_up.this, "Introduce un número valido", Toast.LENGTH_SHORT).show();
                             }
+                        }else{
+                            Toast.makeText(Sing_up.this, "Introduce un correo valido", Toast.LENGTH_SHORT).show();
                         }
-                    });
+                    }else{
+                        Toast.makeText(Sing_up.this, "Introduce un Nombre Valido", Toast.LENGTH_SHORT).show();
+                    }
                 }else{
                     mPassword.setError("La contraseña no cumple con los requerimientos.");
                     mPassword.requestFocus();
@@ -308,6 +323,7 @@ public class Sing_up extends AppCompatActivity {
         //if (user != null){
         //   startActivity(new Intent(Sing_up.this, MainActivity.class));
         //}//sacar usuario
-    }
+}
 
 }
+
