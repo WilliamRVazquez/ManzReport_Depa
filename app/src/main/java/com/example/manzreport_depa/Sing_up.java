@@ -139,6 +139,7 @@ public class Sing_up extends AppCompatActivity {
                                 user.put("email", email);
                                 user.put("phone", phone);
                                 user.put("Rol", rol[0]);
+                                user.put("password",(password));
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -179,6 +180,7 @@ public class Sing_up extends AppCompatActivity {
                                 user.put("email", email);
                                 user.put("phone", phone);
                                 user.put("Rol", rol[0]);
+                                user.put("password",(password));
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -224,6 +226,7 @@ public class Sing_up extends AppCompatActivity {
                                 user.put("email", email);
                                 user.put("phone", phone);
                                 user.put("Rol", rol[0]);
+                                user.put("password",(password));
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
@@ -266,6 +269,7 @@ public class Sing_up extends AppCompatActivity {
                                 user.put("email", email);
                                 user.put("phone", phone);
                                 user.put("Rol", rol[0]);
+                                user.put("password",(password));
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
