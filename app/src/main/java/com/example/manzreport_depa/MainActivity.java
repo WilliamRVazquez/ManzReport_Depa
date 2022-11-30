@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navegacion = findViewById(R.id.bottom_navigation);
         navegacion.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,reportesTerminados).commit();
-        //loadFragment(reportesTerminados);
+        loadFragment(perfil);
 
 
 

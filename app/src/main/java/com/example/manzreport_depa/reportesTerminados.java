@@ -82,13 +82,14 @@ public class reportesTerminados extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        mAdapter.startListening();
+
     }
     @Override
     public void onStop() {
         super.onStop();
         mAdapter.stopListening();
     }
+
     public static class WrapContentLinearLayoutManager extends LinearLayoutManager {
         public WrapContentLinearLayoutManager(Context context) {
             super(context);

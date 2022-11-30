@@ -3,16 +3,19 @@
     <item
         android:id="@+id/rTerminado_fragment"
         android:icon="@drawable/report"
+        android:orderInCategory="12"
         android:title="@string/terminados"
         />
     <item
         android:id="@+id/rPendiente_fragment"
         android:icon="@drawable/reports"
+        android:orderInCategory="11"
         android:title="@string/pendiente"
         />
     <item
         android:id="@+id/user_fragment"
         android:icon="@drawable/user"
+        android:orderInCategory="10"
         android:title="@string/perfil"
         />
 </menu>
