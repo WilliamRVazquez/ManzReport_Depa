@@ -1,11 +1,15 @@
 package com.example.manzreport_depa;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +40,7 @@ public class Sing_up extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseFirestore fStore;
     String userID;
+    Dialog dialog;
 
 
     // Contraseña de 8-20 caracteres que requiere números y letras de ambos casos
@@ -47,7 +52,7 @@ public class Sing_up extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sing_up);
-
+        dialog = new Dialog(this);
         mFullName   = findViewById(R.id.Register_Nombre_Completo);
         mEmail      = findViewById(R.id.Register_Correo);
         mPassword   = findViewById(R.id.Register_Contraseña);
@@ -73,6 +78,31 @@ public class Sing_up extends AppCompatActivity {
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             //codes: capdam = C002,proteccioncivil = P003,
             // jardineria = J004,Mantenimiento Publico = M005
+            @Override
+            public void onClick(View v) {
+                openTerms();
+            }
+        });
+
+    }
+
+    private void openTerms() {
+        dialog.setContentView(R.layout.terminos);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.setCancelable(false);
+        ImageView imageViewclose = dialog.findViewById(R.id.imageclose2);
+        Button btnok = dialog.findViewById(R.id.btn_acep);
+        Button btnno = dialog.findViewById(R.id.btn_no);
+
+        imageViewclose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                //Toast.makeText(Sing_up.this, "Dialog Closed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String email = mEmail.getText().toString().trim();
@@ -110,7 +140,7 @@ public class Sing_up extends AppCompatActivity {
                 }else if(PASSWORD_PATTERN.matcher(password).matches()){
                     boolean fullNameVerificar = fullName.matches("^[a-zA-Z\\s]*$");
                     boolean emailVerificar = email.matches("^[_A-Za-z0-9-\\\\+]+(\\\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\\\.[A-Za-z0-9]+)*(\\\\.[A-Za-z]{2,})$");
-                    boolean phoneVerificar = phone.matches("\\+\\d{12}");
+                    boolean phoneVerificar = phone.matches("\\+\\d{13}");
 
                     if(fullNameVerificar){
                         if(emailVerificar){
@@ -200,9 +230,6 @@ public class Sing_up extends AppCompatActivity {
                                             });
                                             startActivity(new Intent(getApplicationContext(), login.class));
                                             finish();
-
-
-
 
 
                                         }else if(code.equals("J004")){
@@ -311,9 +338,19 @@ public class Sing_up extends AppCompatActivity {
                     mPassword.setError("La contraseña no cumple con los requerimientos.");
                     mPassword.requestFocus();
                 }
+
             }
         });
 
+        btnno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+                finish();
+                Toast.makeText(Sing_up.this, "Cancelado", Toast.LENGTH_SHORT).show();
+            }
+        });
+        dialog.show();
     }
 
     @Override
