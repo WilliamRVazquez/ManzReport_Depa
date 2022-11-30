@@ -54,16 +54,19 @@ public class reportesPendientes extends Fragment {
         correo_e = prefs.getString("users", "");
         mRecycler =root.findViewById(R.id.recyclerViewSingle);
         if(correo_e.equals("2")){
-            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Capdam").whereEqualTo("Aceptado", "Si");
+            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Capdam").whereEqualTo("Aceptado", "Aceptado");
             setUpRecyclerView();
         }else if(correo_e.equals("3")){
-            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Proteccion civil").whereEqualTo("Aceptado", "Si");
+            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Proteccion civil").whereEqualTo("Aceptado", "Aceptado");
             setUpRecyclerView();
         }else if(correo_e.equals("4")){
-            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Jardineria").whereEqualTo("Aceptado", "Si");
+            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Jardineria").whereEqualTo("Aceptado", "Aceptado");
             setUpRecyclerView();
         }else if(correo_e.equals("5")){
-            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Mantenimiento publico").whereEqualTo("Aceptado", "Si");
+            query = mFirestore.collection("Reportes").whereEqualTo("tiporeporte","Mantenimiento publico").whereEqualTo("Aceptado", "Aceptado");
+            setUpRecyclerView();
+        }else if(correo_e.equals("0")){
+            query = mFirestore.collection("Reportes").whereEqualTo("Aceptado", "Aceptado");
             setUpRecyclerView();
         }
 

@@ -1,6 +1,7 @@
 package com.example.manzreport_depa;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -100,18 +102,20 @@ public class perfil extends Fragment {
         resetPassLocal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetPassword.findViewById(R.id.editcontra);
-                dialog.setContentView(R.layout.resetcontra);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                sireset = dialog.findViewById(R.id.btn_yesreset);
-                noreset = dialog.findViewById(R.id.btn_noreset);
+
+                final EditText resetPassword = new EditText(v.getContext());
+
+                final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
+                passwordResetDialog.setTitle("Resetiar Contraseña ?");
+                passwordResetDialog.setMessage("Ingresa Nueva Contraseña > 6 Caracteres Minimo.");
+                passwordResetDialog.setView(resetPassword);
 
 
-                sireset.setOnClickListener(new View.OnClickListener() {
+                passwordResetDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v ) {
+                    public void onClick(DialogInterface dialog, int which) {
                         // extract the email and send reset link
-                        newPassword = resetPassword.getText().toString();
+                        String newPassword = resetPassword.getText().toString();
                         user.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -126,14 +130,14 @@ public class perfil extends Fragment {
                     }
                 });
 
-                noreset.setOnClickListener(new View.OnClickListener() {
+                passwordResetDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        dialog.cancel();
+                    public void onClick(DialogInterface dialog, int which) {
+                        // close
                     }
                 });
 
-                dialog.show();
+                passwordResetDialog.create().show();
 
             }
         });

@@ -42,6 +42,7 @@ public class login extends AppCompatActivity {
     FirebaseFirestore mFirestore;
     String id;
     String rolesitos;
+    FirebaseUser user;
 
 
 
@@ -104,35 +105,42 @@ public class login extends AppCompatActivity {
                             FirebaseFirestore mFirestore;
                             mFirestore = FirebaseFirestore.getInstance();
                             fAuth = FirebaseAuth.getInstance();
-                            mFirestore.collection("users").whereEqualTo("Id", fAuth.getCurrentUser().getUid())
-                                    .get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if (task.isSuccessful()) {
-                                                for (QueryDocumentSnapshot document : task.getResult()) {
-                                                    String rol = document.getString("Rol");
-                                                    if(rol.equals("1")){
-                                                        progressBar.setVisibility(View.GONE);
-                                                        fAuth.signOut();
-                                                        Toast.makeText(login.this, "No perteneces a ningun departamento", Toast.LENGTH_SHORT).show();
-                                                    }else{
-                                                        Toast.makeText(login.this, "Logeo completado!", Toast.LENGTH_SHORT).show();
-                                                        Intent intent1 = new Intent (login.this, MainActivity.class);
-                                                        Bundle data1 = new Bundle();
-                                                        data1.putString("ROL",rolesitos);
-                                                        intent1.putExtras(data1);
-                                                        startActivity(intent1);
+                            user = fAuth.getCurrentUser();
+                            if (!user.isEmailVerified()) {
+                                Toast.makeText(login.this, "Debes de verificar el correo", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                                fAuth.signOut();
+
+                            }else if (user.isEmailVerified()){
+                                mFirestore.collection("users").whereEqualTo("Id", fAuth.getCurrentUser().getUid())
+                                        .get()
+                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                                        String rol = document.getString("Rol");
+                                                        if(rol.equals("1")){
+                                                            progressBar.setVisibility(View.GONE);
+                                                            fAuth.signOut();
+                                                            Toast.makeText(login.this, "No perteneces a ningun departamento", Toast.LENGTH_SHORT).show();
+                                                        }else{
+                                                            Toast.makeText(login.this, "Logeo completado!", Toast.LENGTH_SHORT).show();
+                                                            Intent intent1 = new Intent (login.this, MainActivity.class);
+                                                            Bundle data1 = new Bundle();
+                                                            data1.putString("ROL",rolesitos);
+                                                            intent1.putExtras(data1);
+                                                            startActivity(intent1);
+                                                        }
+
+                                                        Log.d(TAG, document.getId() + " => " + document.getData());
                                                     }
-
-                                                    Log.d(TAG, document.getId() + " => " + document.getData());
+                                                } else {
+                                                    Log.w(TAG, "Error getting documents.", task.getException());
                                                 }
-                                            } else {
-                                                Log.w(TAG, "Error getting documents.", task.getException());
                                             }
-                                        }
-                                    });
-
+                                        });
+                            }
                         }else {
                             Toast.makeText(login.this, "Error ! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBar.setVisibility(View.GONE);
@@ -143,10 +151,6 @@ public class login extends AppCompatActivity {
 
             }
         });
-        if(fAuth.getCurrentUser() != null){
-            startActivity(new Intent(getApplicationContext(),MainActivity.class));
-            finish();
-        }
 
         mCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,8 +165,8 @@ public class login extends AppCompatActivity {
 
                 final EditText resetMail = new EditText(v.getContext());
                 final AlertDialog.Builder passwordResetDialog = new AlertDialog.Builder(v.getContext());
-                passwordResetDialog.setTitle("Resetear contraseña?");
-                passwordResetDialog.setMessage("Escribe tu correo para enviar un link para reseteo contraseá");
+                passwordResetDialog.setTitle("Resetear contraseña");
+                passwordResetDialog.setMessage("Escribe tu correo para enviar un link para reseteo contraseña");
                 passwordResetDialog.setView(resetMail);
 
                 passwordResetDialog.setPositiveButton("Si", new DialogInterface.OnClickListener() {
@@ -199,13 +203,18 @@ public class login extends AppCompatActivity {
 
 
     }
+    public void onBackPressed() {
+        moveTaskToBack(true); finish();
+    }
     @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser user = fAuth.getCurrentUser();
         if (user != null){
-            startActivity(new Intent(login.this, MainActivity.class));
-        }//sacar usuario
+            if(user.isEmailVerified()){
+                startActivity(new Intent(login.this, MainActivity.class));
+            }
+        }
     }
     // apartado para verificar permisos y pedirlos
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -218,7 +227,4 @@ public class login extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
         }
     }
-
-
-
 }
