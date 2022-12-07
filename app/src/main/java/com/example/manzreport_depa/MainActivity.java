@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar mToolbar= (Toolbar) findViewById(R.id.toolbar);
         setActionBar(mToolbar);
         mToolbar.setTitleTextColor(Color.WHITE);
-        getActionBar().setTitle("Reportes deparatamentales");
+        getActionBar().setTitle("Reportes Departamentales");
         mToolbar.setNavigationOnClickListener(view -> onBackPressed());
 
         BottomNavigationView navegacion = findViewById(R.id.bottom_navigation);
